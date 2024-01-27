@@ -1,0 +1,18 @@
+{
+  "name": "deps-wo-updates",
+  "version": "1.0.0",
+  "description": "Check package.json for dependencies where latest version is old",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}
