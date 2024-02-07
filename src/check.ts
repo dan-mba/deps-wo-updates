@@ -38,7 +38,7 @@ export async function checkDependency(dependency: string) : Promise<dependencyMe
           package: dependency,
           latest,
           date: date.split('T')[0] || "unknown",
-          next,
+          next: next.length > 10 ? next.slice(0,11) : next,
           nextDate: metadata.time[next]?.split('T')[0]
 
         }
