@@ -40,8 +40,8 @@ export function outputTable (metadata: dependencyMetadata[] ) {
   const tableOutput = table.render();
 
   if (process.env.GITHUB_STEP_SUMMARY) {
-    const summary = "```\n" + tableOutput + "\n```\n";
-    writeFileSync(process.env.GITHUB_STEP_SUMMARY, summary)
+    const summary = "```bash\n" + tableOutput + "\n```\n";
+    writeFileSync(process.env.GITHUB_STEP_SUMMARY, summary, 'utf8')
   } else {
     console.log(tableOutput);
   }
