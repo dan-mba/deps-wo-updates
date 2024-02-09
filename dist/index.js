@@ -24739,6 +24739,7 @@ function outputAction(metadata) {
         ];
     });
     core.summary.addTable([header, ...table]);
+    core.summary.write();
 }
 
 ;// CONCATENATED MODULE: ./src/output.ts
