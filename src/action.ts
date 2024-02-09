@@ -25,5 +25,4 @@ export function outputAction (metadata: dependencyMetadata[] ) {
 
   summary.addTable([header, ...table])
   summary.write()
-  console.log([header, ...table])
 }
