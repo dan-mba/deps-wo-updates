@@ -1,7 +1,6 @@
 import { summary } from "@actions/core";
 import { dependencyMetadata } from "./check.js";
-import { writeFileSync } from 'fs';
-import { SummaryTableCell, SummaryTableRow } from "@actions/core/lib/summary.js";
+import { SummaryTableRow } from "@actions/core/lib/summary.js";
 
 export function outputAction (metadata: dependencyMetadata[] ) {
   const deps = structuredClone(metadata);
@@ -26,4 +25,5 @@ export function outputAction (metadata: dependencyMetadata[] ) {
 
   summary.addTable([header, ...table])
   summary.write()
+  console.log([header, ...table])
 }

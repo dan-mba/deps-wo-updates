@@ -24740,6 +24740,7 @@ function outputAction(metadata) {
     });
     core.summary.addTable([header, ...table]);
     core.summary.write();
+    console.log([header, ...table]);
 }
 
 ;// CONCATENATED MODULE: ./src/output.ts
