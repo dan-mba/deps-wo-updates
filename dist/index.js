@@ -25656,7 +25656,13 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 
 
 
-const filename = __nccwpck_require__.ab + "package.json";
+let filename = '';
+if (process.env.GITHUB_WORKSPACE) {
+    filename = (0,path__WEBPACK_IMPORTED_MODULE_2__.join)(process.env.GITHUB_WORKSPACE, 'package' + '.json');
+}
+else {
+    filename = __nccwpck_require__.ab + "package.json";
+}
 let dependencies = [];
 try {
     const data = (0,fs__WEBPACK_IMPORTED_MODULE_0__.readFileSync)(__nccwpck_require__.ab + "package.json").toString();

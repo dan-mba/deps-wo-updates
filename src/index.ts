@@ -4,7 +4,13 @@ import { join } from 'path';
 import { checkDependency } from './check.js';
 import { outputTable } from './output.js';
 
-const filename = join(cwd(), 'package.json')
+let filename = '';
+if (process.env.GITHUB_WORKSPACE) {
+  filename = join(process.env.GITHUB_WORKSPACE, 'package' + '.json')
+} else {
+  filename = join(cwd(), 'package' + '.json')
+}
+
 let dependencies: string[] = [];
 try {
   const data = readFileSync(filename).toString();
