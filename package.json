@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js"
+    "action-build": "ncc build src/index.ts -o dist --source-map",
+    "start": "node build/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "@types/node": "^20.11.10",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
+    "@vercel/ncc": "^0.38.1",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3"
   },
