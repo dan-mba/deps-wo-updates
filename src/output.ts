@@ -1,5 +1,6 @@
 import { Table } from 'console-table-printer';
 import { dependencyMetadata } from "./check.js";
+import { writeFileSync } from 'fs';
 
 export function outputTable (metadata: dependencyMetadata[] ) {
   const table = new Table({
@@ -36,5 +37,12 @@ export function outputTable (metadata: dependencyMetadata[] ) {
     table.addRow( dep, {color: colorize(dep, lstYear)})
   });
   
-  table.printTable();
-} 
+  const tableOutput = table.render();
+
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    const summary = "```\n" + tableOutput + "\n```\n";
+    writeFileSync(process.env.GITHUB_STEP_SUMMARY, summary)
+  } else {
+    console.log(tableOutput);
+  }
+}
