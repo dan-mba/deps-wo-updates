@@ -1,15 +1,17 @@
-import { readFileSync } from 'fs';
-import { cwd, exit } from 'process';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { cwd, exit, env } from 'node:process';
+import { join } from 'node:path';
 import { checkDependency } from './check.js';
 import { outputTable } from './output.js';
 
 let filename = '';
-if (process.env.GITHUB_WORKSPACE) {
-  filename = join(process.env.GITHUB_WORKSPACE, 'package' + '.json')
+if (env.GITHUB_WORKSPACE) {
+  filename = join(env.GITHUB_WORKSPACE, 'package' + '.json')
 } else {
   filename = join(cwd(), 'package' + '.json')
 }
+
+console.log(filename);
 
 let dependencies: string[] = [];
 try {

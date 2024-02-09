@@ -25643,12 +25643,12 @@ async function checkDependency(dependency) {
 /***/ ((module, __unused_webpack___webpack_exports__, __nccwpck_require__) => {
 
 __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
-/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(7147);
-/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(fs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var process__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(7282);
-/* harmony import */ var process__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(process__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1017);
-/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(path__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var node_fs__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(7561);
+/* harmony import */ var node_fs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(node_fs__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var node_process__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(7742);
+/* harmony import */ var node_process__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(node_process__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var node_path__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(9411);
+/* harmony import */ var node_path__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(node_path__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _check_js__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(682);
 /* harmony import */ var _output_js__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(3733);
 
@@ -25657,15 +25657,16 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 
 
 let filename = '';
-if (process.env.GITHUB_WORKSPACE) {
-    filename = (0,path__WEBPACK_IMPORTED_MODULE_2__.join)(process.env.GITHUB_WORKSPACE, 'package' + '.json');
+if (node_process__WEBPACK_IMPORTED_MODULE_1__.env.GITHUB_WORKSPACE) {
+    filename = (0,node_path__WEBPACK_IMPORTED_MODULE_2__.join)(node_process__WEBPACK_IMPORTED_MODULE_1__.env.GITHUB_WORKSPACE, 'package' + '.json');
 }
 else {
-    filename = __nccwpck_require__.ab + "package.json";
+    filename = (0,node_path__WEBPACK_IMPORTED_MODULE_2__.join)((0,node_process__WEBPACK_IMPORTED_MODULE_1__.cwd)(), 'package' + '.json');
 }
+console.log(filename);
 let dependencies = [];
 try {
-    const data = (0,fs__WEBPACK_IMPORTED_MODULE_0__.readFileSync)(__nccwpck_require__.ab + "package.json").toString();
+    const data = (0,node_fs__WEBPACK_IMPORTED_MODULE_0__.readFileSync)(filename).toString();
     const pkg = JSON.parse(data);
     if (pkg.dependencies) {
         dependencies = [...Object.keys(pkg.dependencies)];
@@ -25676,14 +25677,14 @@ try {
 }
 catch (e) {
     console.error('Error reading package.json', e);
-    (0,process__WEBPACK_IMPORTED_MODULE_1__.exit)(1);
+    (0,node_process__WEBPACK_IMPORTED_MODULE_1__.exit)(1);
 }
 let metadata = await Promise.all(dependencies.map(async (dep) => await (0,_check_js__WEBPACK_IMPORTED_MODULE_4__/* .checkDependency */ .S)(dep)));
 //filter out dependencies that failed lookup
 metadata = metadata.filter((d) => d.date != "undefined");
 if (metadata.length == 0) {
     console.error('Dependency lookup failed');
-    (0,process__WEBPACK_IMPORTED_MODULE_1__.exit)(1);
+    (0,node_process__WEBPACK_IMPORTED_MODULE_1__.exit)(1);
 }
 (0,_output_js__WEBPACK_IMPORTED_MODULE_3__/* .outputTable */ .c)(metadata);
 
@@ -25764,11 +25765,14 @@ function outputConsole(metadata) {
     table.printTable();
 }
 
+// EXTERNAL MODULE: external "node:process"
+var external_node_process_ = __nccwpck_require__(7742);
 ;// CONCATENATED MODULE: ./src/output.ts
 
 
+
 function outputTable(metadata) {
-    if (process.env.GITHUB_STEP_SUMMARY) {
+    if (external_node_process_.env.GITHUB_STEP_SUMMARY) {
         outputAction(metadata);
     }
     else {
@@ -25870,6 +25874,27 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:events"
 
 /***/ }),
 
+/***/ 7561:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:fs");
+
+/***/ }),
+
+/***/ 9411:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:path");
+
+/***/ }),
+
+/***/ 7742:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:process");
+
+/***/ }),
+
 /***/ 4492:
 /***/ ((module) => {
 
@@ -25902,13 +25927,6 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("path");
 /***/ ((module) => {
 
 module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("perf_hooks");
-
-/***/ }),
-
-/***/ 7282:
-/***/ ((module) => {
-
-module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("process");
 
 /***/ }),
 
