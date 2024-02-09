@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { cwd, exit } from 'process';
 import { join } from 'path';
-import { checkDependency, dependencyMetadata } from './check.js';
+import { checkDependency } from './check.js';
 import { outputTable } from './output.js';
 
 const filename = join(cwd(), 'package.json')
