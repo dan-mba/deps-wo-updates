@@ -1,10 +1,16 @@
-import { cwd, exit } from 'node:process';
+import { exit, env } from 'node:process';
 import { join } from 'node:path';
 import { checkDependency } from './check.js';
 import { getDeps } from './get-deps.js';
-import { outputConsole } from './console.js';
+import { outputAction } from './action.js';
 
-let filename = join(cwd(), 'package' + '.json')
+let filename = '';
+if (env.GITHUB_WORKSPACE) {
+  filename = join(env.GITHUB_WORKSPACE, 'package' + '.json')
+} else {
+  console.error('GitHub workspace not setup');
+  exit(1);
+}
 
 const dependencies = await getDeps(filename);
 
@@ -16,4 +22,4 @@ if (metadata.length == 0) {
   exit(1);
 }
 
-outputConsole(metadata);
+outputAction(metadata);

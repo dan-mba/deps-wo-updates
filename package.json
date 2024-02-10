@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "action-build": "ncc build src/index.ts -o dist --source-map",
+    "action-build": "ncc build src/action-index.ts -o dist --source-map",
     "start": "node build/index.js"
   },
   "keywords": [],
