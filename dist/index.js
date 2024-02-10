@@ -24656,18 +24656,35 @@ __webpack_async_result__();
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2186);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
 
+function colorize(dep, cutoff) {
+    const d = new Date(dep.date);
+    if (d > cutoff) {
+        return ':white_check_mark:';
+    }
+    if (dep.nextDate) {
+        const n = new Date(dep.nextDate);
+        if (n > cutoff) {
+            return ':ok:';
+        }
+    }
+    return ':x:';
+}
 function outputAction(metadata) {
     const deps = structuredClone(metadata);
     const header = [
+        { data: 'status', header: true },
         { data: 'package', header: true },
         { data: 'latest', header: true },
         { data: 'date', header: true },
         { data: 'next', header: true },
         { data: 'nextDate', header: true }
     ];
+    let lstYear = new Date(Date.now());
+    lstYear.setFullYear(lstYear.getFullYear() - 1);
     deps.sort((a, b) => a.package.localeCompare(b.package));
     const table = deps.map(dep => {
         return [
+            { data: colorize(dep, lstYear) },
             { data: dep.package },
             { data: dep.latest },
             { data: dep.date },
