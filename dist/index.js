@@ -24656,18 +24656,19 @@ __webpack_async_result__();
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2186);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
 
-function colorize(dep, cutoff) {
+const status = [':white_check_mark:', ':ok:', ':x:'];
+function order(dep, cutoff) {
     const d = new Date(dep.date);
     if (d > cutoff) {
-        return ':white_check_mark:';
+        return 0;
     }
     if (dep.nextDate) {
         const n = new Date(dep.nextDate);
         if (n > cutoff) {
-            return ':ok:';
+            return 1;
         }
     }
-    return ':x:';
+    return 2;
 }
 function outputAction(metadata) {
     const deps = structuredClone(metadata);
@@ -24681,10 +24682,21 @@ function outputAction(metadata) {
     ];
     let lstYear = new Date(Date.now());
     lstYear.setFullYear(lstYear.getFullYear() - 1);
-    deps.sort((a, b) => a.package.localeCompare(b.package));
-    const table = deps.map(dep => {
+    const orderedDeps = deps.map((dep) => {
+        return {
+            order: order(dep, lstYear),
+            ...dep
+        };
+    });
+    orderedDeps.sort((a, b) => {
+        if (a.order === b.order) {
+            return a.package.localeCompare(b.package);
+        }
+        return b.order - a.order;
+    });
+    const table = orderedDeps.map(dep => {
         return [
-            { data: colorize(dep, lstYear) },
+            { data: status[dep.order] || '' },
             { data: dep.package },
             { data: dep.latest },
             { data: dep.date },
