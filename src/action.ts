@@ -2,18 +2,20 @@ import { summary } from "@actions/core";
 import { dependencyMetadata } from "./check.js";
 import { SummaryTableRow } from "@actions/core/lib/summary.js";
 
-function colorize (dep: dependencyMetadata, cutoff: Date) {
+const status = [':white_check_mark:', ':ok:', ':x:']
+
+function order(dep: dependencyMetadata, cutoff: Date) {
   const d = new Date(dep.date);
   if (d > cutoff) {
-    return ':white_check_mark:';
+    return 0;
   }
   if (dep.nextDate) {
     const n = new Date(dep.nextDate);
     if (n > cutoff) {
-      return ':ok:';
+      return 1;
     }
   }
-  return ':x:';
+  return 2;
 }
 
 export function outputAction (metadata: dependencyMetadata[] ) {
@@ -29,10 +31,21 @@ export function outputAction (metadata: dependencyMetadata[] ) {
 
   let lstYear = new Date(Date.now());
   lstYear.setFullYear(lstYear.getFullYear() - 1)
-  deps.sort((a,b) => a.package.localeCompare(b.package));
-  const table: SummaryTableRow[] = deps.map(dep => {
+  const orderedDeps = deps.map((dep) => {
+    return {
+      order: order(dep, lstYear),
+      ...dep
+    }
+  })
+  orderedDeps.sort((a,b) => {
+    if (a.order === b.order) {
+      return a.package.localeCompare(b.package)
+    }
+    return b.order - a.order;
+  });
+  const table: SummaryTableRow[] = orderedDeps.map(dep => {
     return [
-      {data: colorize(dep, lstYear)},
+      {data: status[dep.order] || ''},
       {data: dep.package},
       {data: dep.latest},
       {data: dep.date},
