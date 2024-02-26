@@ -3,4 +3,4 @@ description: 'Check package.json for dependencies where latest version is old'
 
 runs:
   using: 'node20'
-  main: 'dist/index.mjs'
+  main: 'dist/index.js'

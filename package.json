@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "action-build": "ncc build src/action-index.ts -o dist --source-map",
-    "new-action-build" : "esbuild  src/action-index.ts --bundle --outfile=dist/index.mjs --format=esm --platform=node --target=node20.0.0",
+    "new-action-build" : "esbuild  src/action-index.ts --bundle --outfile=dist/index.js --format=esm --platform=node --target=node20.0.0",
     "start": "node build/index.js"
   },
   "keywords": [],
