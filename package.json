@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "action-build": "ncc build src/action-index.ts -o dist --source-map",
+    "new-action-build" : "esbuild  src/action-index.ts --bundle --outfile=dist/index.js --format=esm --platform=node --target=node20.0.0",
     "start": "node build/index.js"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "@vercel/ncc": "^0.38.1",
+    "esbuild": "^0.20.1",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3"
   },
